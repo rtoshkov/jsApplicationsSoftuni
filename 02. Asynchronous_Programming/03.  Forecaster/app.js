@@ -19,11 +19,13 @@ function attachEvents() {
         try {
             const requestLocation = await fetch('http://localhost:3030/jsonstore/forecaster/locations');
             const locations = await requestLocation.json();
-            let codeLocation = locations.find((e) => e.name.toLowerCase() === inpField.value.toLowerCase()).code;
+            let codeLocation = locations.find((e) => e.name.toLowerCase() === inpField.value.toLowerCase());
 
             if (codeLocation === undefined) {
                 throw new Error('Not found');
             }
+
+            codeLocation = codeLocation.code
 
             const [conditions, forecast] = await Promise.all([
                 currentConditions(codeLocation),
@@ -31,7 +33,7 @@ function attachEvents() {
             ])
 
             //TODO remove
-            console.log(conditions);
+            console.log(forecast);
 
             divForecast.style.display = 'block';
             divCurrent.innerHTML = '<div class="label">Current conditions</div>';
@@ -62,12 +64,37 @@ function attachEvents() {
             spanContainer.appendChild(spanFData2);
             spanContainer.appendChild(spanFData3);
 
+            divUpcoming.innerHTML = '<div class="label">Three-day forecast</div>';
+            const forecastDivInfo = document.createElement('DIV');
+            forecastDivInfo.classList.add('forecast-info');
+            divUpcoming.appendChild(forecastDivInfo);
+
+            for (let i=0; i<3; i++){
+                const forecastSpanUpcoming = document.createElement('SPAN');
+                forecastSpanUpcoming.classList.add('upcoming');
+                const forecastSpanSymbol = document.createElement('SPAN');
+                forecastSpanSymbol.classList.add('symbol');
+                const forecastSymbol = forecast.forecast[i].condition;
+                forecastSpanSymbol.textContent = weather[forecastSymbol];
+                const forecastData1 = document.createElement('SPAN');
+                forecastData1.classList.add('forecast-data');
+                forecastData1.textContent = `${forecast.forecast[i].low}°/${forecast.forecast[i].high}°`;
+                const forecastData2 = document.createElement('SPAN');
+                forecastData2.classList.add('forecast-data');
+                forecastData2.textContent = forecastSymbol;
+
+                forecastDivInfo.appendChild(forecastSpanUpcoming);
+                forecastSpanUpcoming.appendChild(forecastSpanSymbol);
+                forecastSpanUpcoming.appendChild(forecastData1);
+                forecastSpanUpcoming.appendChild(forecastData2);
+
+            }
 
 
 
 
         } catch (err) {
-            console.log(err.message);
+            console.log(`My Error: ${err.message}`);
         }
     }
 
