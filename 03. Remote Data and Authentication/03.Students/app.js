@@ -1,8 +1,4 @@
 const tbody = document.querySelector('#results tbody');
-const inputFirstName = document.querySelector('.inputs input[name="firstName"]');
-const inputLastName = document.querySelector('.inputs input[name="lastName"]');
-const inputFacultyNumber = document.querySelector('.inputs input[name="facultyNumber"]');
-const inputGrade = document.querySelector('.inputs input[name="grade"]');
 const form = document.querySelector('form');
 form.addEventListener('submit', onClick);
 
@@ -59,7 +55,7 @@ async function onClick(e){
         throw new Error(request.message)
     }
 
-    const result = request.json();
+    // const result = await request.json();
 
     } catch(error){
         alert(error);
