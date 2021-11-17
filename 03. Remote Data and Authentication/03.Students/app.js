@@ -58,6 +58,6 @@ async function onClick(e){
     // const result = await request.json();
 
     } catch(error){
-        alert(error);
+        alert(error.message);
     }
 }
