@@ -1,1 +1,5 @@
-console.log('My requests...')
+import {displayTemplates} from './utils.js';
+
+displayTemplates();
+
+
