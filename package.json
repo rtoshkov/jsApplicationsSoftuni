@@ -1,0 +1,21 @@
+{
+  "name": "js-applications",
+  "version": "1.0.0",
+  "description": "\"# jsApplicationsSoftuni\"",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rtoshkov/jsApplicationsSoftuni.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rtoshkov/jsApplicationsSoftuni/issues"
+  },
+  "homepage": "https://github.com/rtoshkov/jsApplicationsSoftuni#readme"
+}
