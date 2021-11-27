@@ -10,15 +10,9 @@ export {
     getAllRecords,
 }
 
-export async function displayTemplates(selectedForm = 'createForm', book= undefined) {
-    const booksRaw = await getAllRecords();
-    const books = Object.entries(booksRaw).map(([key, value]) => {
-        return Object.assign(value, {_id: key})
-    })
-    console.log(books);
-    console.log(selectedForm);
-    console.log(book);
-    render(templates.container(books, selectedForm, book), body);
+export function displayTemplates(selectedForm = 'createForm', book= undefined) {
+
+    render(templates.container( selectedForm, book), body);
 }
 
 function isThereEmptyFileds(data){

@@ -1,4 +1,5 @@
-import {html, render, displayTemplates, writeBook, onEdit, onDelete, submitEdit} from './utils.js';
+import {html, render, displayTemplates, writeBook, onEdit, onDelete, submitEdit, getAllRecords} from './utils.js';
+import {until} from './node_modules/lit-html/directives/until.js'
 
 const row = (bookInfo) => html`
     <tr _id="${bookInfo._id}">
@@ -10,7 +11,7 @@ const row = (bookInfo) => html`
         </td>
     </tr>`
 
-export const table = (books) => html`
+export const table = (LoadingTable) => html`
     <button @click=${() => displayTemplates()} id="loadBooks">LOAD ALL BOOKS</button>
     <table>
         <thead>
@@ -22,7 +23,7 @@ export const table = (books) => html`
         </thead>
         <tbody>
         ${
-                books.map((book) => html`${row(book)}`)
+                until(LoadingTable, html`<tr><td> ... </td><td> Loading </td><td> ... </td></tr>`)
         }
         </tbody>
     </table>`
@@ -54,9 +55,18 @@ const availableForms = {
     createForm: createForm,
 }
 
-export const container = (books, choice, book) => html`
+export const container = (choice, book) => html`
     <section id="first">${
-            table(books)
+            table(LoadingTable())
     }
     </section>
     <section id="second">${availableForms[choice](book)}</section>`
+
+
+async function  LoadingTable(){
+    const booksRaw = await getAllRecords();
+    const books = Object.entries(booksRaw).map(([key, value]) => {
+        return Object.assign(value, {_id: key})
+    })
+    return books.map((book) => html`${row(book)}`)
+}
