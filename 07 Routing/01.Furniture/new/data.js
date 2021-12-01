@@ -4,7 +4,8 @@ const pageSize = 4
 const endpoint = {
     'allFurniture' : '/data/catalog/',
     'furnitureByFour':  (offset) => `/data/catalog?offset=${offset}&pageSize=${pageSize}`,
-    'availablePages':  '/data/catalog?count'
+    'availablePages':  '/data/catalog?count',
+    'SearchModel': (word) => `/data/catalog?where=model%20LIKE%20%22${encodeURI(word)}%22`
 }
 
 function calculateOffset(pageNumber = 1){
@@ -22,4 +23,9 @@ export async function paginationFurniture(page){
 export async function NumberOfPages(){
     const records = await api2.get(endpoint.availablePages);
     return Math.ceil(records/pageSize);
+}
+
+
+export async function SearchModel(word){
+    return api2.get(endpoint.SearchModel(word));
 }

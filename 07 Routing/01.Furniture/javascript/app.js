@@ -9,6 +9,7 @@ import {displayEdit} from "./pages/edit.js";
 import * as api from "./api.js";
 import {deleteItem} from "./api.js";
 import {getUserData} from "./userData.js";
+import {displaySearch} from "./pages/search.js";
 
 
 const main = document.querySelector('div.container');
@@ -24,6 +25,7 @@ libs.page('/register', displayRegister);
 libs.page('/MyFurniture', displayMyFurniture);
 libs.page('/details/:id', displayDetails);
 libs.page('/edit/:id', displayEdit);
+libs.page('/search', displaySearch);
 libs.page('/', '/index');
 
 libs.page.start();
